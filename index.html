@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Distribuidora de Produtos de Limpeza e Pet</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      .hero-section {
+        background: linear-gradient(
+            rgba(14, 143, 216, 0.7),
+            rgba(31, 105, 148, 0.7)
+          ),
+          url("https://images.unsplash.com/photo-1622030411594-c282a63aa1bc?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 60vh;
+        display: flex;
+        align-items: center;
+        color: white;
+      }
+      .product-card {
+        transition: transform 0.3s;
+        margin-bottom: 20px;
+      }
+      .product-card:hover {
+        transform: translateY(-5px);
+      }
+      .whatsapp-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg" style="background: #0e8fd8">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+          <span
+            style="
+              font-size: 2rem;
+              color: #fff;
+              font-weight: 700;
+              letter-spacing: 2px;
+            "
+            >Leroll</span
+          >
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#produtos">Produtos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#sobre">Sobre</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#contato">Contato</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container text-center">
+        <img
+          src="https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/90zx4rdj/cpg/12e/4c1/Leroll%20Of.png"
+          alt="Leroll"
+          class="img-fluid"
+        />
+        <!--lass="lead" style="color: #e3f2fd;">Produtos de limpeza e pet de alta qualidade para sua empresa</p>-->
+      </div>
+    </section>
+
+    <!-- Produtos Section -->
+    <section id="produtos" class="py-5" style="background: #f8fbfd">
+      <div class="container">
+        <h2 class="text-center mb-4" style="color: #0e8fd8; font-weight: 700">
+          Nossos Produtos
+        </h2>
+        <div class="row" id="produtos-container">
+          <!-- Os produtos serão carregados aqui dinamicamente -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Sobre Section -->
+    <section id="sobre" class="py-5 bg-white">
+      <div class="container">
+        <h2 class="text-center mb-4" style="color: #0e8fd8; font-weight: 700">
+          Sobre Nós
+        </h2>
+        <div class="row">
+          <div class="col-md-8 mx-auto text-center">
+            <p style="color: #333">
+              Somos a Leroll Distribuidora, comprometida com a qualidade e
+              satisfação dos nossos clientes. Trabalhamos com as melhores marcas
+              do mercado para garantir produtos de excelência.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contato Section -->
+    <section id="contato" class="py-5" style="background: #f8fbfd">
+      <div class="container">
+        <h2 class="text-center mb-4" style="color: #0e8fd8; font-weight: 700">
+          Entre em Contato
+        </h2>
+        <div class="row">
+          <div class="col-md-6 mx-auto text-center">
+            <p style="color: #333">Estamos prontos para atender você!</p>
+            <p style="color: #333">
+              Horário de atendimento: Segunda a Sexta, das 8h às 18h
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WhatsApp Button -->
+    <a
+      href="https://wa.me/SEUNUMERO"
+      class="whatsapp-button btn btn-success btn-lg rounded-circle"
+      style="background: #25d366; border: none"
+    >
+      <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer class="py-4" style="background: #0e8fd8; color: #fff">
+      <div class="container text-center">
+        <p>
+          &copy; <span id="current-year"></span> Leroll Distribuidora. Todos os
+          direitos reservados.
+        </p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Atualiza o ano no footer
+      document.getElementById("current-year").textContent =
+        new Date().getFullYear();
+
+      // Função para carregar os produtos
+      async function carregarProdutos() {
+        try {
+          const response = await fetch("http://localhost:5000/api/produtos");
+          const produtos = await response.json();
+
+          const container = document.getElementById("produtos-container");
+          const categorias = {};
+
+          // Agrupa produtos por categoria
+          produtos.forEach((produto) => {
+            if (!categorias[produto.categoria]) {
+              categorias[produto.categoria] = [];
+            }
+            categorias[produto.categoria].push(produto);
+          });
+
+          // Cria seções para cada categoria
+          for (const [categoria, produtosCategoria] of Object.entries(
+            categorias
+          )) {
+            const categoriaDiv = document.createElement("div");
+            categoriaDiv.className = "col-md-6 mb-4";
+            categoriaDiv.innerHTML = `
+                        <h3 class="mb-3" style="color: #0e8fd8;">${categoria}</h3>
+                        <div class="row">
+                            ${produtosCategoria
+                              .map((produto) => {
+                                // Cria a mensagem personalizada para o WhatsApp
+                                const mensagem = `Olá! Gostaria de saber mais sobre o produto: ${produto.nome}%0A%0A${produto.descricao}`;
+                                const whatsappLink = `https://wa.me/5511999999999?text=${mensagem}`;
+
+                                return `
+                                    <div class="col-md-6">
+                                        <div class="card product-card border-0 shadow-sm">
+                                            <img src="${produto.imagem}" class="card-img-top" alt="${produto.nome}">
+                                            <div class="card-body">
+                                                <h5 class="card-title" style="color: #0e8fd8;">${produto.nome}</h5>
+                                                <p class="card-text">${produto.descricao}</p>
+                                                <a href="${whatsappLink}" 
+                                                   class="btn btn-success" 
+                                                   target="_blank"
+                                                   style="background: #25d366; border: none;">
+                                                    <i class="fab fa-whatsapp"></i> Solicitar Informações
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                              })
+                              .join("")}
+                        </div>
+                    `;
+            container.appendChild(categoriaDiv);
+          }
+        } catch (error) {
+          console.error("Erro ao carregar produtos:", error);
+          document.getElementById("produtos-container").innerHTML = `
+                    <div class="col-12 text-center">
+                        <p>Erro ao carregar produtos. Por favor, tente novamente mais tarde.</p>
+                    </div>
+                `;
+        }
+      }
+
+      // Carrega os produtos quando a página carregar
+      document.addEventListener("DOMContentLoaded", carregarProdutos);
+    </script>
+  </body>
+</html>
